@@ -3,7 +3,7 @@ import classes from './MedicineItem.module.css';
 import MedicineItemForm from './MedicineItemForm'
 
 const MedicineItem = (props) => {
-  { console.log('in meal form ', props) }
+
   return (
     <li className={classes.medicine}>
       <div>

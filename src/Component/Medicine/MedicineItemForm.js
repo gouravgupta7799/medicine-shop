@@ -1,20 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import Input from '../UI/Input.js'
-
+import MedicineContext from "../../Store/Medicine-context.js";
 import classes from './MedicineItemForm.module.css'
 import CartContext from "../../Store/Cart-context.js";
 
 const MedicineItemForm = (props) => {
 
   const cartcnxt = useContext(CartContext);
-  const [localQuantity, setLocalQuantity] = useState(props.items.quantity || 0);
+  const mediCtx = useContext(MedicineContext);
+
+  const quantityArr = mediCtx.items.filter((it) => { return (it.id === props.items.id) })
+  const localQuantity = quantityArr[0].quantity ? quantityArr[0].quantity : 0
 
   const addToCart = (event) => {
     event.preventDefault();
     if (localQuantity > 0) {
       const quantity = document.getElementById('amount_' + props.id).value;
       cartcnxt.addItem({ ...props.items, quantity: quantity });
-      setLocalQuantity((prevQuantity) => prevQuantity - quantity);
+      mediCtx.removeItem(props.id, quantity)
     }
   }
 

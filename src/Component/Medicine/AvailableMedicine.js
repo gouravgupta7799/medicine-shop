@@ -1,22 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import classes from './AvailableMedicine.module.css';
 import MedicineItem from './MedicineItem';
 import Card from '../UI/Card';
 import MedicineForm from './MedicineForm';
+import MedicineContext from "../../Store/Medicine-context.js";
 
 const AvailableMedicine = () => {
 
-  const [setAvailableMedicine, setAvailableMedicineHandler] = useState([]);
+  const mediCtx = useContext(MedicineContext);
 
   const addMedicineHandler = (medicine) => {
-    setAvailableMedicineHandler((prevMedicine) => {
-      const updatedMedicine = [...prevMedicine, medicine];
-      return updatedMedicine;
-    })
+    mediCtx.addItem(medicine)
   }
 
-  const availableMedicine = setAvailableMedicine.map((medicine) =>
+  const availableMedicine = mediCtx.items.map((medicine) =>
     <MedicineItem key={medicine.id} id={medicine.id} name={medicine.medicine} description={medicine.desc} price={medicine.price} quantity={medicine.quantity} />)
   return (
     <section className={classes.Medicine}>

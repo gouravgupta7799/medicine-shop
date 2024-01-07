@@ -4,6 +4,7 @@ import Header from './Component/Layout/Header';
 import Medicine from './Component/Medicine/Medicine';
 import Cart from './Component/Cart/Cart';
 import CartProvider from "./Store/CartProvider";
+import MedicineProvider from "./Store/MedicineProvider";
 
 function App() {
 
@@ -19,13 +20,15 @@ function App() {
   }
 
   return (
-    <CartProvider>
-      {cartIsShown && <Cart onClose={hideCart} />}
-      <Header onShowCart={showCart} />
-      <main>
-        <Medicine />
-      </main>
-    </CartProvider>
+    <MedicineProvider>
+      <CartProvider>
+        {cartIsShown && <Cart onClose={hideCart} />}
+        <Header onShowCart={showCart} />
+        <main>
+          <Medicine />
+        </main>
+      </CartProvider>
+    </MedicineProvider>
   );
 }
 
